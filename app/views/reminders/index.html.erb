@@ -1,0 +1,5 @@
+REMINDERS INDEX
+
+<% @reminders.each do |reminder| %>
+  <li><%= reminder.text %> - <%= reminder.run_at.in_time_zone("America/Denver") %></li>
+<% end %>
