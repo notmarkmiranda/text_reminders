@@ -1,0 +1,15 @@
+<h1>New Reminder</h1>
+
+<%= form_with model: @reminder do |f| %>
+  <div>
+    <%= f.label :text %>
+    <%= f.text_field :text %>
+  </div>
+  <div>
+    <%= f.label :run_at %>
+    <%= f.datetime_select :run_at, default: 3.days.from_now, discard_minute: true, ampm: true %>
+  </div>
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>
