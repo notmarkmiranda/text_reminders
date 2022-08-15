@@ -198,6 +198,8 @@ GEM
       rspec-support (~> 3.10)
     rspec-support (3.11.0)
     ruby2_keywords (0.0.5)
+    shoulda-matchers (5.1.0)
+      activesupport (>= 5.2.0)
     sidekiq (6.5.4)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
@@ -253,6 +255,7 @@ DEPENDENCIES
   rails (~> 7.0.2, >= 7.0.2.4)
   redis (~> 4.0)
   rspec-rails
+  shoulda-matchers (~> 5.0)
   sidekiq
   sprockets-rails
   stimulus-rails
