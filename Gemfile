@@ -26,6 +26,7 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "figaro"
   gem 'shoulda-matchers', '~> 5.0'
+  gem "capybara"
 end
 
 group :development do

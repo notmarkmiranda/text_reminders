@@ -1,0 +1,5 @@
+<%= form_with url: sign_in_path do |f| %>
+  <%= f.label :phone_number, "Phone Number" %>
+  <%= f.text_field :phone_number %>
+  <%= f.submit "Next" %>
+<% end %>
