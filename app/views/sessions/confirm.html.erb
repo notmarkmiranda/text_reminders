@@ -1,0 +1,7 @@
+<h1>Confirm Phone Number</h1>
+<%= form_with url: session_verification_path do |f| %>
+  <%= f.hidden_field :user_id, value: params[:uuid] %>
+  <%= f.label :verification, "Verification Code" %>
+  <%= f.text_field :verification %>
+  <%= f.submit "Verify" %>
+<% end %>
