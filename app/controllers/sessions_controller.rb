@@ -3,7 +3,6 @@ class SessionsController < ApplicationController
   end
 
   def create
-    # this is where you find or create the user, and update their verifications
     user = User.find_or_create_by(phone_number: user_params[:phone_number])
     user.generate_verification_code
     redirect_to confirm_path(user.id)
@@ -14,7 +13,8 @@ class SessionsController < ApplicationController
     if user&.verify(params[:verification])
       redirect_to reminders_path
     else
-      render :new
+      flash[:alert] = "Something went wrong"
+      redirect_to sign_in_path
     end
   end
 
