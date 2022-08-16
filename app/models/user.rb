@@ -6,7 +6,12 @@ class User < ApplicationRecord
   end
 
   def verify(code)
-    verification == code && verification_expiration > Time.now
+    authorized = verification == code && verification_expiration > Time.now
+    clear_verification
+    authorized
+  end
+
+  def clear_verification
   end
 
   private
