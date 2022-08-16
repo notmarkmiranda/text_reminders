@@ -6,10 +6,16 @@ class User < ApplicationRecord
   end
 
   def verify(code)
-    verification == code && verification_expiration > Time.now
+    authorized = verification == code && verification_expiration > Time.now
+    clear_verification
+    authorized
   end
 
   private
+
+  def clear_verification
+    update(verification: nil, verification_expiration: nil)
+  end
 
   def random_verification_code
     string = ""
