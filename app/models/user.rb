@@ -11,10 +11,11 @@ class User < ApplicationRecord
     authorized
   end
 
-  def clear_verification
-  end
-
   private
+
+  def clear_verification
+    update(verification: nil, verification_expiration: nil)
+  end
 
   def random_verification_code
     string = ""
