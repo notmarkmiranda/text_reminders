@@ -26,10 +26,13 @@ class RemindersController < ApplicationController
       TextSendingJob.perform_at(
         @reminder.run_at.in_time_zone("America/Denver"), @reminder.text
       )
-      redirect_to reminders_path
+      respond_to do |format|
+        format.html { redirect_to reminders_path }
+        format.turbo_stream
+      end
     else
       flash[:alert] = @reminder.errors.full_messages.join(", ")
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
