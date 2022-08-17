@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   validates :phone_number, presence: true, uniqueness: { case_sensitive: false }
 
+  has_many :reminders
+
   def generate_verification_code
     update(verification: random_verification_code, verification_expiration: 15.minutes.from_now)
   end

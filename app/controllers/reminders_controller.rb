@@ -1,14 +1,15 @@
 class RemindersController < ApplicationController
+  before_action :require_user
   def index
-    @reminders = Reminder.all
+    @reminders = current_user.reminders
   end
 
   def new
-    @reminder = Reminder.new
+    @reminder = current_user.reminders.new
   end
 
   def create
-    @reminder = Reminder.new
+    @reminder = current_user.reminders.new
     Time.use_zone("America/Denver") do
       @reminder.attributes = reminder_params
       time_in_zone = Time.zone.local(

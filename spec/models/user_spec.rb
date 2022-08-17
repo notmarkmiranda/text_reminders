@@ -5,6 +5,7 @@ RSpec.describe User, type: :model do
 
   it { should validate_presence_of :phone_number }
   it { should validate_uniqueness_of(:phone_number).case_insensitive }
+  it { should have_many :reminders }
 
   describe "#verify" do
     let(:user) { create(:user, verification: "0987") }
