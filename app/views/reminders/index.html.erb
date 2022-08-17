@@ -1,5 +1,12 @@
-REMINDERS INDEX
+<main class="container">
+  <%= turbo_frame_tag "first_turbo_frame" do %>
+    <h1>REMINDERS INDEX</h1>
+    <%= link_to "Create New Reminder", new_reminder_path, data: { turbo_frame: dom_id(Reminder.new) } %>
+  <% end %>
 
-<% @reminders.each do |reminder| %>
-  <li><%= reminder.text %> - <%= reminder.run_at.in_time_zone("America/Denver") %></li>
-<% end %>
+  <%= turbo_frame_tag Reminder.new %>
+
+  <%= turbo_frame_tag "reminders" do %>
+    <%= render @reminders %>
+  <% end %>
+</main>

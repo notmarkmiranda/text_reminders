@@ -4,6 +4,7 @@ class TextSendingJob
   include Sidekiq::Job
 
   def perform(body)
+    return if ENV["disable_reminders"] == "true"
     client.messages.create(
       to: ENV["marks_phone_number"],
       from: ENV["twilio_phone_number"],
