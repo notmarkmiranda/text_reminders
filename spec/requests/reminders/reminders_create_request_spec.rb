@@ -2,9 +2,12 @@ require "rails_helper"
 
 describe "Reminders Create", type: :request do
   let(:reminder_attributes) { { reminder: attributes_for(:reminder) } }
+  let(:user) { create(:user) }
+
   subject(:post_create) { post reminders_path, params: reminder_attributes }
 
   before do
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
     allow(TextSendingJob).to receive(:perform_at).with(any_args).and_return(nil)
     run_at = reminder_attributes[:reminder][:run_at]
     reminder_attributes[:reminder]["run_at(1i)"] = run_at.year.to_s
