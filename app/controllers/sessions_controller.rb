@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_action :reject_user, only: [:new, :create, :confirm]
+
   def create
     user = User.find_or_create_by(phone_number: user_params[:phone_number])
     user.generate_verification_code
@@ -14,6 +16,11 @@ class SessionsController < ApplicationController
       flash[:alert] = "Something went wrong"
       redirect_to sign_in_path
     end
+  end
+
+  def destroy
+    session[:user_id] = nil
+    redirect_to sign_in_path
   end
 
   private
