@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :reminders, only: [:index, :new, :create]
   get '/sign-in', to: 'sessions#new', as: 'sign_in'
   post '/sign-in', to: 'sessions#create'
+  get '/sign-out', to: 'sessions#destroy', as: 'sign_out'
   get '/confirm/:uuid', to: 'sessions#confirm', as: 'confirm'
   post '/verification', to: 'sessions#verification', as: 'session_verification'
 end

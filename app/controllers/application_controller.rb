@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
     redirect_to sign_in_path unless current_user
   end
 
+  def reject_user
+    redirect_to reminders_path if current_user
+  end
+
   private
 
   def current_user
