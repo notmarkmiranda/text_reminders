@@ -1,1 +1,5 @@
-<li><%= reminder.text %> - <%= reminder.run_at.in_time_zone("America/Denver") %></li>
+<tr>
+  <td><%= reminder.text %></td>
+  <td><%= reminder.run_at.in_time_zone("America/Denver") %></td>
+  <td><%= link_to "Edit" %> | <%= link_to "Delete" %></td>
+</tr>

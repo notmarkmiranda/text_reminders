@@ -17,7 +17,7 @@ gem "bootsnap", require: false
 gem "delayed_job_active_record"
 gem "sidekiq"
 gem "twilio-ruby"
-gem "foreman"
+gem 'skeleton-rails', :git => 'https://github.com/helios-technologies/skeleton-rails'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

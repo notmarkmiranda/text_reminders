@@ -1,12 +1,24 @@
-<main class="container">
-  <%= turbo_frame_tag "first_turbo_frame" do %>
-    <h1>REMINDERS INDEX</h1>
-    <%= link_to "Create New Reminder", new_reminder_path, data: { turbo_frame: dom_id(Reminder.new) } %>
-  <% end %>
+<%= turbo_frame_tag "first_turbo_frame" do %>
+  <section class="reminders__header">
+    <h2>Reminders</h2>
+    <%= link_to "Create New Reminder", new_reminder_path, data: { turbo_frame: dom_id(Reminder.new) }, class: "button" %>
+  </section>
+  <hr />
+<% end %>
 
-  <%= turbo_frame_tag Reminder.new %>
+<%= turbo_frame_tag Reminder.new %>
 
-  <%= turbo_frame_tag "reminders" do %>
-    <%= render @reminders %>
-  <% end %>
-</main>
+<%= turbo_frame_tag "reminders" do %>
+  <table class="u-full-width">
+    <thead>
+      <tr>
+        <th>Text</th>
+        <th>Run at</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @reminders %>
+    </tbody>
+  </table>
+<% end %>
