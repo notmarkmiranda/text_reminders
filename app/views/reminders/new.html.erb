@@ -2,16 +2,18 @@
 
 <%= turbo_frame_tag @reminder do %>
   <%= form_with model: @reminder do |f| %>
-    <div>
-      <%= f.label :text %>
-      <%= f.text_field :text %>
-    </div>
-    <div>
-      <%= f.label :run_at %>
-      <%= f.datetime_select :run_at, ampm: true, default: 3.days.from_now.in_time_zone("America/Denver") %>
-    </div>
-    <div>
-      <%= f.submit %>
+    <div class="row">
+      <div class="six columns">
+        <%= f.label :text %>
+        <%= f.text_field :text, class: "u-full-width" %>
+      </div>
+      <div class="six columns">
+        <%= f.label :run_at %>
+        <%= f.datetime_select :run_at, ampm: true, default: 3.days.from_now.in_time_zone("America/Denver") %>
+      </div>
+      <div>
+        <%= f.submit %>
+      </div>
     </div>
   <% end %>
 <% end %>
