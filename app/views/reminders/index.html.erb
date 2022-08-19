@@ -18,7 +18,15 @@
       </tr>
     </thead>
     <tbody>
-      <%= render @reminders %>
+      <% if @reminders.any? %>
+        <%= render @reminders %>
+      <% else %>
+        <tr>
+          <td colspan="3">
+            You have no reminders yet...
+          </td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
 <% end %>
