@@ -18,6 +18,7 @@ gem "delayed_job_active_record"
 gem "sidekiq"
 gem "twilio-ruby"
 gem 'skeleton-rails', :git => 'https://github.com/helios-technologies/skeleton-rails'
+gem "dotenv-rails"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
@@ -27,7 +28,6 @@ group :development, :test do
   gem "figaro"
   gem 'shoulda-matchers', '~> 5.0'
   gem "capybara"
-  gem "dotenv-rails"
 end
 
 group :development do
