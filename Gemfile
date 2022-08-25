@@ -27,6 +27,7 @@ group :development, :test do
   gem "figaro"
   gem 'shoulda-matchers', '~> 5.0'
   gem "capybara"
+  gem "dotenv-rails"
 end
 
 group :development do
