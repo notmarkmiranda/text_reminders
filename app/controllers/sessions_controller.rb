@@ -7,6 +7,10 @@ class SessionsController < ApplicationController
     redirect_to confirm_path(user.id)
   end
 
+  def confirm
+    TextVerificationSenderJob.perform_async(params[:uuid])
+  end
+
   def verification
     user = User.find(params[:user_id])
     if user&.verify(params[:verification])
