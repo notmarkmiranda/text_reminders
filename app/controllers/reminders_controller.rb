@@ -1,5 +1,6 @@
 class RemindersController < ApplicationController
   before_action :require_user
+
   def index
     @reminders = current_user.reminders
   end
@@ -10,17 +11,8 @@ class RemindersController < ApplicationController
 
   def create
     @reminder = current_user.reminders.new
-    Time.use_zone("America/Denver") do
-      @reminder.attributes = reminder_params
-      time_in_zone = Time.zone.local(
-        reminder_params["run_at(1i)"],
-        reminder_params["run_at(2i)"],
-        reminder_params["run_at(3i)"],
-        reminder_params["run_at(4i)"],
-        reminder_params["run_at(5i)"]
-      )
-      @reminder.run_at = time_in_zone
-    end
+    @reminder.attributes = reminder_params
+    @reminder.run_at = time_in_zone(reminder_params)
     if @reminder.save
       flash[:alert] = "Your reminder has been created and scheduled!"
       TextSendingJob.perform_at(
@@ -40,5 +32,17 @@ class RemindersController < ApplicationController
 
   def reminder_params
     params.require(:reminder).permit(:text, :run_at)
+  end
+
+  def time_in_zone(attributes)
+    Time.use_zone("America/Denver") do
+      Time.zone.local(
+        attributes["run_at(1i)"],
+        attributes["run_at(2i)"],
+        attributes["run_at(3i)"],
+        attributes["run_at(4i)"],
+        attributes["run_at(5i)"]
+      )
+    end
   end
 end
