@@ -6,6 +6,7 @@ RSpec.describe User, type: :model do
   it { should validate_presence_of :phone_number }
   it { should validate_uniqueness_of(:phone_number).case_insensitive }
   it { should have_many :reminders }
+  it { should validate_inclusion_of(:timezone).in_array(described_class::TIMEZONES).allow_nil }
 
   describe "format validation" do
     let(:user) { build(:user) }

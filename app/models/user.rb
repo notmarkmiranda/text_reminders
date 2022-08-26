@@ -1,4 +1,15 @@
 class User < ApplicationRecord
+  TIMEZONES = [
+    "Mountain Time (US & Canada)",
+    "Hawaii",
+    "Alaska",
+    "Pacific Time (US & Canada)",
+    "Arizona",
+    "Central Time (US & Canada)",
+    "Eastern Time (US & Canada)"
+  ]
+
+  validates :timezone, inclusion: { in: TIMEZONES }, allow_nil: true
   validates :phone_number, presence: true,
                            uniqueness: { case_sensitive: false },
                            format: { with: /\A[0-9]{10}/, message: "must be digits only" },
