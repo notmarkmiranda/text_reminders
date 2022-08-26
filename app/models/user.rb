@@ -1,5 +1,8 @@
 class User < ApplicationRecord
-  validates :phone_number, presence: true, uniqueness: { case_sensitive: false }
+  validates :phone_number, presence: true,
+                           uniqueness: { case_sensitive: false },
+                           format: { with: /\A[0-9]{10}/, message: "must be digits only" },
+                           length: { is: 10, message: "must be 10 digits" }
 
   has_many :reminders
 
