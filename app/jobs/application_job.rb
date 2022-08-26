@@ -1,7 +1,9 @@
-class ApplicationJob < ActiveJob::Base
-  # Automatically retry jobs that encountered a deadlock
-  # retry_on ActiveRecord::Deadlocked
+class ApplicationJob
+  def client
+    @client ||= Twilio::REST::Client.new(ENV["twilio_account_sid"], ENV["twilio_auth_token"])
+  end
 
-  # Most jobs are safe to ignore if the underlying records are no longer available
-  # discard_on ActiveJob::DeserializationError
+  def reminders_disabled?
+    ENV["disable_reminders"] == "true"
+  end
 end

@@ -22,7 +22,7 @@ describe "Reminders Create", type: :request do
   it "saves in mountain time" do
     expect { post_create }.to change(Reminder, :count).by(1)
     expect(TextSendingJob).to have_received(:perform_at).with(
-      time_in_zone(reminder_attributes), reminder_attributes[:reminder][:text]
+      time_in_zone(reminder_attributes), Integer
     ).once
   end
 

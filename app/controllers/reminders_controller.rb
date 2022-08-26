@@ -16,7 +16,8 @@ class RemindersController < ApplicationController
     if @reminder.save
       flash[:alert] = "Your reminder has been created and scheduled!"
       TextSendingJob.perform_at(
-        @reminder.run_at.in_time_zone("America/Denver"), @reminder.text
+        @reminder.run_at.in_time_zone("America/Denver"),
+        @reminder.id
       )
       respond_to do |format|
         format.html { redirect_to reminders_path }

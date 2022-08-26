@@ -1,4 +1,4 @@
-class TextVerificationSenderJob < BaseJob
+class TextVerificationSenderJob < ApplicationJob
   include Sidekiq::Job
 
   def perform(uuid)
