@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
     user = User.find(params[:user_id])
     if user&.verify(params[:verification])
       session[:user_id] = user.id
-      redirect_to reminders_path
+      login_redirect
     else
       flash[:alert] = "Something went wrong"
       redirect_to sign_in_path
@@ -28,6 +28,14 @@ class SessionsController < ApplicationController
   end
 
   private
+
+  def login_redirect
+    if current_user.timezone.present?
+      redirect_to reminders_path
+    else
+      redirect_to edit_profile_path
+    end
+  end
 
   def user_params
     params.permit(:phone_number)
