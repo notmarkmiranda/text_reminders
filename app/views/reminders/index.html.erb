@@ -4,6 +4,7 @@
     <%= link_to "Create New Reminder", new_reminder_path, data: { turbo_frame: dom_id(Reminder.new) }, class: "button" %>
   </section>
   <hr />
+  <p>All reminders will be scheduled in <%= current_user.timezone %>. If this is incorrect, change that on the <%= link_to "edit profile", edit_profile_path, data: { turbo: false }  %> page.</p>
 <% end %>
 
 <%= turbo_frame_tag Reminder.new %>
