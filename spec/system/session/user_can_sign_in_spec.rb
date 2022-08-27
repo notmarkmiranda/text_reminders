@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Visitor can sign up", type: :system do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, timezone: "Hawaii") }
 
   before do
     allow_any_instance_of(User).to receive(:verify).with("1234").and_return true

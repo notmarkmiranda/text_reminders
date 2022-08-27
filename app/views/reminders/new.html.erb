@@ -9,7 +9,7 @@
       </div>
       <div class="six columns">
         <%= f.label :run_at %>
-        <%= f.datetime_select :run_at, ampm: true, default: 3.days.from_now.in_time_zone("America/Denver") %>
+        <%= f.datetime_select :run_at, ampm: true, default: 3.days.from_now.in_time_zone(current_user.timezone) %>
       </div>
       <div>
         <%= f.submit %>

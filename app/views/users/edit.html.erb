@@ -1,0 +1,10 @@
+<h2>Edit Profile</h2>
+<%= form_with model: current_user, url: update_user_path do |f| %>
+  <%= f.label :phone_number %>
+  <%= f.text_field :phone_number, disabled: true %>
+  <%= f.label :timezone %>
+  <%= f.select :timezone, User::TIMEZONES, { include_blank: "Select Timezone" }, required: true %>
+  <div>
+    <%= f.submit "Save Profile" %>
+  </div>
+<% end %>

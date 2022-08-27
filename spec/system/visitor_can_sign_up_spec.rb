@@ -15,6 +15,6 @@ RSpec.describe "Visitor can sign up", type: :system do
     fill_in "Verification Code", with: "1234"
     click_button "Verify"
 
-    expect(current_path).to eq(reminders_path)
+    expect(current_path).to eq(edit_profile_path)
   end
 end
