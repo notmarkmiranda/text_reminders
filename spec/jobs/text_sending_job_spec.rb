@@ -13,6 +13,8 @@ RSpec.describe TextSendingJob, type: :job do
     }
   end
 
+  subject { TextSendingJob.perform_async(reminder.id) }
+
   it 'calls messages.create with the correct arguments' do
     Sidekiq::Testing.inline! do
       stub_const('ENV', ENV.to_hash.merge('disable_reminders' => 'false'))
@@ -20,7 +22,20 @@ RSpec.describe TextSendingJob, type: :job do
       expect(twilio_double).to receive(:messages).and_return(messages)
       expect(messages).to receive(:create).with(arguments)
 
-      TextSendingJob.perform_async(reminder.id)
+      subject
+    end
+  end
+
+  it 'updates the reminder with a jid' do
+    Sidekiq::Testing.inline! do
+      stub_const('ENV', ENV.to_hash.merge('disable_reminders' => 'false'))
+      allow(Twilio::REST::Client).to receive(:new).with("asdf", "superduper").and_return(twilio_double)
+      expect(twilio_double).to receive(:messages).and_return(messages)
+      expect(messages).to receive(:create).with(arguments)
+
+      subject
+
+      expect(reminder.reload.jid).not_to be nil
     end
   end
 end
