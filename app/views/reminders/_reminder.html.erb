@@ -1,5 +1,5 @@
-<tr>
+<%= content_tag :tr, id: dom_id(reminder) do %>
   <td><%= reminder.text %></td>
-  <td><%= reminder.run_at.in_time_zone("America/Denver") %></td>
+  <td><%= reminder.run_at.in_time_zone(reminder.user_timezone) %></td>
   <td><%= link_to "Edit" %> | <%= link_to "Delete" %></td>
-</tr>
+<% end %>

@@ -3,7 +3,7 @@ class TextVerificationSenderJob < ApplicationJob
 
   def perform(uuid)
     user = User.find_by_id(uuid)
-    return unless user || !reminders_disabled?
+    return unless user && !reminders_disabled?
 
     client.messages.create(
       to: "+1#{user.phone_number}",

@@ -9,25 +9,23 @@
 
 <%= turbo_frame_tag Reminder.new %>
 
-<%= turbo_frame_tag "reminders" do %>
-  <table class="u-full-width">
-    <thead>
+<table class="u-full-width">
+  <thead>
+    <tr>
+      <th>Text</th>
+      <th>Run at</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody id="reminders">
+    <% if @reminders.any? %>
+      <%= render @reminders %>
+    <% else %>
       <tr>
-        <th>Text</th>
-        <th>Run at</th>
-        <th>Actions</th>
+        <td colspan="3">
+          You have no reminders yet...
+        </td>
       </tr>
-    </thead>
-    <tbody>
-      <% if @reminders.any? %>
-        <%= render @reminders %>
-      <% else %>
-        <tr>
-          <td colspan="3">
-            You have no reminders yet...
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% end %>
+    <% end %>
+  </tbody>
+</table>
