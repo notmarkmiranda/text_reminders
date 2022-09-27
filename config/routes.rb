@@ -14,4 +14,10 @@ Rails.application.routes.draw do
 
   get  '/edit-profile', to: 'users#edit', as: 'edit_profile'
   patch '/users', to: 'users#update', as: 'update_user'
+
+  namespace :api do
+    namespace :v1 do
+      post "/webhooks/twilio_sms"
+    end
+  end
 end
