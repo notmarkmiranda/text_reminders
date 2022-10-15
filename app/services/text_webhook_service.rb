@@ -28,7 +28,8 @@ class TextWebhookService
       )
     end
   rescue StandardError => e
-    TextNotScheduledJob.perform_async(user.id, e.message.split("::")[-1])
+    # require 'pry'; binding.pry
+    TextNotScheduledJob.perform_async(user.id, e.class)
   end
 
   def self.call(params)

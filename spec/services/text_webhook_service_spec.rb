@@ -60,7 +60,7 @@ RSpec.describe TextWebhookService do
       before { params.merge!("Body" => "Take out the trash") }
 
       it "calls the TextNotScheduledJob" do
-        expect(TextNotScheduledJob).to receive(:perform_async).once
+        expect(TextNotScheduledJob).to receive(:perform_async).with(String, TextWebhookService::NoDateError).once
         subject
       end
     end
@@ -69,7 +69,7 @@ RSpec.describe TextWebhookService do
       before { params.merge!("Body" => "09/13/2022") }
 
       it "calls the TextNotScheduledJob" do
-        expect(TextNotScheduledJob).to receive(:perform_async).once
+        expect(TextNotScheduledJob).to receive(:perform_async).with(String, TextWebhookService::NoMessageError).once
 
         subject
       end
