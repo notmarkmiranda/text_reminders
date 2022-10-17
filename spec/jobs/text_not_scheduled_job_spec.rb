@@ -13,7 +13,7 @@ RSpec.describe TextNotScheduledJob, type: :job do
   end
 
   describe "NoDateError" do
-    let(:body) { "There is no date in the message you sent" }
+    let(:body) { "There is no date in the reminder you sent" }
 
     it 'creates a new job' do
       expect {
@@ -22,11 +22,33 @@ RSpec.describe TextNotScheduledJob, type: :job do
     end
 
     it 'calls messages.create with the correct arguments' do
-      allow(Twilio::REST::Client).to receive(:new).with("asdf", "superduper").and_return(twilio_double)
-      expect(twilio_double).to receive(:messages).and_return(messages)
-      expect(messages).to receive(:create).with(arguments)
+      Sidekiq::Testing.inline! do
+        allow(Twilio::REST::Client).to receive(:new).with("asdf", "superduper").and_return(twilio_double)
+        expect(twilio_double).to receive(:messages).and_return(messages)
+        expect(messages).to receive(:create).with(arguments)
 
-      described_class.perform_async(user.id, TextWebhookService::NoDateError)
+        described_class.perform_async(user.id, TextWebhookService::NoDateError)
+      end
+    end
+  end
+
+  describe "NoMessageError" do
+    let(:body) { "There is no text in the reminder you sent" }
+
+    it "creates a new job" do
+      expect {
+        described_class.perform_async(user.id, TextWebhookService::NoMessageError)
+      }.to change(described_class.jobs, :size).by(1)
+    end
+
+    it "calls messages.create with the correct arguments" do
+      Sidekiq::Testing.inline! do
+        allow(Twilio::REST::Client).to receive(:new).with("asdf", "superduper").and_return(twilio_double)
+        expect(twilio_double).to receive(:messages).and_return(messages)
+        expect(messages).to receive(:create).with(arguments)
+
+        described_class.perform_async(user.id, TextWebhookService::NoMessageError)
+      end
     end
   end
 end

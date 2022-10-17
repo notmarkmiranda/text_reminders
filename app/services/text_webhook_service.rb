@@ -28,7 +28,6 @@ class TextWebhookService
       )
     end
   rescue StandardError => e
-    # require 'pry'; binding.pry
     TextNotScheduledJob.perform_async(user.id, e.class)
   end
 
