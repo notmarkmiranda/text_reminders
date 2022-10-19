@@ -51,6 +51,7 @@ RSpec.describe TextWebhookService do
           Time.zone.local(2022, 9, 13, 8, 00, 00)
         end
         expect(TextSendingJob).to receive(:perform_at).with(expected_time, Integer).once
+        expect(TextSendingJob).to receive(:perform_async).with(Integer, confirmation: true)
 
         subject
       end
@@ -61,6 +62,7 @@ RSpec.describe TextWebhookService do
 
       it "calls the TextNotScheduledJob" do
         expect(TextNotScheduledJob).to receive(:perform_async).with(String, TextWebhookService::NoDateError).once
+
         subject
       end
     end

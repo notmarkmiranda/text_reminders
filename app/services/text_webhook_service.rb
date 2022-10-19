@@ -27,6 +27,7 @@ class TextWebhookService
         reminder.id
       )
     end
+    TextSendingJob.perform_async(reminder.id, confirmation: true)
   rescue StandardError => e
     TextNotScheduledJob.perform_async(user.id, e.class)
   end
